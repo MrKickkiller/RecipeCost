@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "RecipeCost",
+    "name": "RecipeCost",
+    "description": "A JEI addon that calculates the raw cost of an item",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "MrKickkiller"
+    ],
+    "credits": "",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
