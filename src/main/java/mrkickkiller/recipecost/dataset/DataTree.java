@@ -5,7 +5,9 @@ import net.minecraft.item.ItemStack;
 import java.util.List;
 
 /**
- * Created by Mathieu on 25/07/2016.
+ * Created by MrKickkiller on 25/07/2016.
+ *
+ * Start of the data tree where the recipe will be explored to find the raw resources.
  */
 public class DataTree {
 

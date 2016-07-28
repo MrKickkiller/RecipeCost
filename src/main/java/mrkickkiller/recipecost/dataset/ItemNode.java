@@ -15,9 +15,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Mathieu on 25/07/2016.
+ * Created by MrKickkiller on 25/07/2016.
  */
-public class ItemNode {
+class ItemNode {
 
     private ItemStack content;
     private Map<ItemStack, Integer> nodeCount = new HashMap<ItemStack, Integer>();
@@ -25,25 +25,25 @@ public class ItemNode {
     private int amount;
     private int amountCrafted = 0;
 
-    public ItemNode(ItemStack content, int amount){
+    ItemNode(ItemStack content, int amount){
         this.content = content;
         this.amount = amount;
-        // TODO : fill recipeNodes;
 
         try {
             IJeiRuntime run = RecipeCostPlugin.getRuntime();
             IRecipeRegistry registry = run.getRecipeRegistry();
 
-            List<IRecipe> recipes = new ArrayList<IRecipe>();
+            // TODO: Sort out the proper recipe categories and what to do in case of multiple recipes.
             List<IRecipeCategory> craftingCategorie = registry.getRecipeCategories(new ArrayList<String>(){{add("minecraft.crafting");}});
 
+            // Todo: This needs serious clean up
+            List<IRecipe> recipes = new ArrayList<IRecipe>();
             List<Object> fetchedRecipies = registry.getRecipesWithOutput(craftingCategorie.get(0), content);
             for (Object result : fetchedRecipies) {
                 recipes.add((IRecipe) result);
             }
 
-
-
+            // Todo: Generalise for every type of crafting recipe.
             for (IRecipe indivRecipe : recipes){
                 if (indivRecipe instanceof ShapedOreRecipe){
                     ShapedOreRecipe inter = (ShapedOreRecipe) indivRecipe;
@@ -65,12 +65,16 @@ public class ItemNode {
                     nodes.add(new ItemNode(stack, nodeCount.get(stack)));
                 }
             }
+
         } catch (EarlyRuntimeGrabException e) {
+            System.err.println("Exception occured during building of datatree");
             e.printStackTrace();
         }
     }
 
-    public List<ItemStack> getMaterialCost(){
+
+    List<ItemStack> getMaterialCost(){
+
         if (nodes.size() == 0){ // No recipe found or blacklisted
             return new ArrayList<ItemStack>() {{
                 for (int i = 0; i < amount; i++){
@@ -81,20 +85,12 @@ public class ItemNode {
         List<ItemStack> cost = null;
         for (ItemNode node : nodes){
             List<ItemStack> temp = node.getMaterialCost();
-
             if (cost == null){
                 cost = temp;
             }else {
                 cost.addAll(temp);
             }
-
         }
-
         return cost;
-
-    }
-
-    public ItemStack getContent() {
-        return content;
     }
 }

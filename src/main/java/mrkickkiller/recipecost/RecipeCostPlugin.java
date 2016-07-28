@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
- * Created by Mathieu on 24/07/2016.
+ * Created by MrKickkiller on 24/07/2016.
  */
 
 @JEIPlugin
@@ -20,13 +20,10 @@ public class RecipeCostPlugin extends BlankModPlugin {
 
     @Override
     public void register(@Nonnull IModRegistry registry) {
-        System.out.println("Registering");
 
         IItemRegistry itemRegistry = registry.getItemRegistry();
         IJeiHelpers jeiHelpers = registry.getJeiHelpers();
         IGuiHelper guihelper = jeiHelpers.getGuiHelper();
-
-
 
     }
 
